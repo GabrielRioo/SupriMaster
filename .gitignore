@@ -1,0 +1,37 @@
+# Arquivos gerados pelo Visual Studio
+.vscode/
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.sln.docstates
+
+# Pasta de dependências do Node.js
+node_modules/
+
+# Arquivos temporários e de compilação
+[Tt]emp/
+[Oo]bj/
+[Bb]in/
+
+# Arquivos de compilação do MSBuild
+[Bb]in/
+[Oo]bj/
+
+# Logs e arquivos de depuração
+Logs/
+*.log
+*.log.*
+*.jnl
+*.suo
+
+# Arquivos de configuração
+*.user
+*.suo
+*.sln.docstates
+*.nuget.props
+*.nuget.targets
+
+# Visual Studio Code
+.vscode/
