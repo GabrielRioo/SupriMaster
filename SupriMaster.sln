@@ -5,6 +5,10 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupriMaster.AppMvc", "src\SupriMaster.AppMvc\SupriMaster.AppMvc.csproj", "{922B5A3A-977B-4D85-88DA-3568CC6F7E99}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupriMaster.Business", "src\SupriMaster.Business\SupriMaster.Business.csproj", "{565B8EC0-560C-43BB-B8D5-AFC9EFF57855}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupriMaster.Infra", "..\SupriMaster/src\SupriMaster.Infra\SupriMaster.Infra.csproj", "{993BA084-621C-450B-926C-EAC859347909}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{922B5A3A-977B-4D85-88DA-3568CC6F7E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{922B5A3A-977B-4D85-88DA-3568CC6F7E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{922B5A3A-977B-4D85-88DA-3568CC6F7E99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{565B8EC0-560C-43BB-B8D5-AFC9EFF57855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{565B8EC0-560C-43BB-B8D5-AFC9EFF57855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{565B8EC0-560C-43BB-B8D5-AFC9EFF57855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{565B8EC0-560C-43BB-B8D5-AFC9EFF57855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{993BA084-621C-450B-926C-EAC859347909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{993BA084-621C-450B-926C-EAC859347909}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{993BA084-621C-450B-926C-EAC859347909}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{993BA084-621C-450B-926C-EAC859347909}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

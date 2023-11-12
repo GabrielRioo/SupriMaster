@@ -253,6 +253,16 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\SupriMaster/src\SupriMaster.Infra\SupriMaster.Infra.csproj">
+      <Project>{993ba084-621c-450b-926c-eac859347909}</Project>
+      <Name>SupriMaster.Infra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SupriMaster.Business\SupriMaster.Business.csproj">
+      <Project>{565b8ec0-560c-43bb-b8d5-afc9eff57855}</Project>
+      <Name>SupriMaster.Business</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
