@@ -61,7 +61,7 @@ namespace SupriMaster.Infra.Data.Repository
 
 		public void Dispose()
 		{
-			throw new NotImplementedException();
+			Db?.Dispose();
 		}
 	}
 }

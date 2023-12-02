@@ -1,4 +1,5 @@
 ﻿using SupriMaster.Business.Core.Models;
+using SupriMaster.Business.Models.Fornecedores.Validations;
 using SupriMaster.Business.Models.Produtos;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,13 @@ namespace SupriMaster.Business.Models.Fornecedores
 
 		//Entity Framework Relactions
 		public ICollection<Produto> Produtos { get; set; }
+
+		public bool Validacao()
+		{
+			var validacao = new FornecedorValidation();
+			var resultado = validacao.Validate(this);
+
+			return resultado.IsValid;
+		}
 	}
 }
