@@ -27,10 +27,10 @@ namespace SupriMaster.Business.Models.Fornecedores.Validations
 
 			When(f => f.TipoFornecedor == ETipoFornecedor.PessoaJuridica, () =>
 			{
-				RuleFor(f => f.Documento.Length).Equal(CpfValidacao.TamanhoCpf)
+				RuleFor(f => f.Documento.Length).Equal(CnpjValidacao.TamanhoCnpj)
 					.WithMessage("O campo Documento precida ter {ComparisonValue} caracteres e foi fornecido {PropertyValue}");
 
-				RuleFor(f => CpfValidacao.Validar(f.Documento)).Equal(true)
+				RuleFor(f => CnpjValidacao.Validar(f.Documento)).Equal(true)
 					.WithMessage("O documento fornecido é inválido.");
 			});
 		}

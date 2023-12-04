@@ -20,12 +20,6 @@ namespace SupriMaster.Business.Models.Fornecedores
 		//Entity Framework Relactions
 		public ICollection<Produto> Produtos { get; set; }
 
-		public bool Validacao()
-		{
-			var validacao = new FornecedorValidation();
-			var resultado = validacao.Validate(this);
-
-			return resultado.IsValid;
-		}
+		
 	}
 }
