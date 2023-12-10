@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace SupriMaster.Business.Core.Notificacoes
 {
-	internal class INotificador
+	public interface INotificador
 	{
+		bool TemNotificacao();
+		List<Notificacao> ObterNotificacoes();
+		void Handle(Notificacao notificacao);
+
 	}
 }

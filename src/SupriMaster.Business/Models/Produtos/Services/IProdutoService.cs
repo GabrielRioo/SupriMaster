@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SupriMaster.Business.Models.Produtos.Services
@@ -13,4 +10,5 @@ namespace SupriMaster.Business.Models.Produtos.Services
 		Task Remover(Guid id);
 
 	}
+
 }

@@ -17,17 +17,17 @@ namespace SupriMaster.Business.Core.Notificacoes
 
 		public void Handle(Notificacao notificacao)
 		{
-			throw new NotImplementedException();
+			_notificacoes.Add(notificacao);
 		}
 
 		public List<Notificacao> ObterNotificacoes()
 		{
-			throw new NotImplementedException();
+			return _notificacoes;
 		}
 
 		public bool TemNotificacao()
 		{
-			throw new NotImplementedException();
+			return _notificacoes.Any();
 		}
 	}
 }
