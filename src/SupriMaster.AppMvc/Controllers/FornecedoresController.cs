@@ -1,4 +1,5 @@
-﻿using SupriMaster.Business.Models.Fornecedores;
+﻿using SupriMaster.Business.Core.Notificacoes;
+using SupriMaster.Business.Models.Fornecedores;
 using SupriMaster.Business.Models.Fornecedores.Services;
 using SupriMaster.Infra.Data.Repository;
 using System;
@@ -16,7 +17,7 @@ namespace SupriMaster.AppMvc.Controllers
 
         public FornecedoresController()
         {
-            _fornecedorService = new FornecedorService(new FornecedorRepository(), new EnderecoRepository());
+            _fornecedorService = new FornecedorService(new FornecedorRepository(), new EnderecoRepository(), new Notificador());
         }
 
         
