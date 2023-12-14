@@ -23,21 +23,23 @@ namespace SupriMaster.AppMvc.Controllers
         private readonly IProdutoService _produtoService;
         private readonly IMapper _mapper;
 
-        public ProdutosController()
+        public ProdutosController(IProdutoRepository produtoRepository, IProdutoService produtoService, IMapper mapper)
         {
-            _produtoRepository = new ProdutoRepository();
-            _produtoService = new ProdutoService(_produtoRepository, new Notificador());
-
-		}
-
-        // GET: Produtos
-        public async Task<ActionResult> Index()
-        {
-            return View(_mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoRepository.ObterTodos()););
+            _produtoRepository = produtoRepository;
+            _produtoService = produtoService;
+            _mapper = mapper;
         }
 
-        // GET: Produtos/Details/5
-        public async Task<ActionResult> Details(Guid id)
+        [Route("lista-de-produtos")]
+		[HttpGet]
+		public async Task<ActionResult> Index()
+        {
+            return View(_mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoRepository.ObterTodos()));
+        }
+
+		[Route("dados-do-produto/{id:guid}")]
+		[HttpGet]
+		public async Task<ActionResult> Details(Guid id)
         {
             var produtoViewModel = await ObterProduto(id);
 
@@ -48,16 +50,15 @@ namespace SupriMaster.AppMvc.Controllers
             return View(produtoViewModel);
         }
 
-        // GET: Produtos/Create
-        public ActionResult Create()
+		[Route("novo-produto")]
+		[HttpGet]
+		public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Produtos/Create
-        // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
-        // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+		[Route("novo-produto")]
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ProdutoViewModel produtoViewModel)
         {
@@ -71,60 +72,60 @@ namespace SupriMaster.AppMvc.Controllers
             return View(produtoViewModel);
         }
 
-        // GET: Produtos/Edit/5
-        public async Task<ActionResult> Edit(Guid? id)
+		[Route("editar-produto/{id:guid}")]
+		[HttpGet]
+		public async Task<ActionResult> Edit(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProdutoViewModel produtoViewModel = await db.ProdutoViewModels.FindAsync(id);
-            if (produtoViewModel == null)
+			var produtoViewModel = await ObterProduto(id);
+
+			if (produtoViewModel == null)
             {
                 return HttpNotFound();
             }
             return View(produtoViewModel);
         }
 
-        // POST: Produtos/Edit/5
-        // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
-        // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+		[Route("editar-produto/{id:guid}")]
+		[HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FornecedorId,Nome,Descricao,Imagem,Valor,DataCadastro,Ativo")] ProdutoViewModel produtoViewModel)
+        public async Task<ActionResult> Edit(ProdutoViewModel produtoViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(produtoViewModel).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await _produtoService.Atualizar(_mapper.Map<Produto>(produtoViewModel));
+
                 return RedirectToAction("Index");
             }
             return View(produtoViewModel);
         }
 
-        // GET: Produtos/Delete/5
-        public async Task<ActionResult> Delete(Guid? id)
+		[Route("excluir-produto/{id:guid}")]
+		[HttpGet]
+		public async Task<ActionResult> Delete(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProdutoViewModel produtoViewModel = await db.ProdutoViewModels.FindAsync(id);
-            if (produtoViewModel == null)
+			var produtoViewModel = await ObterProduto(id);
+
+			if (produtoViewModel == null)
             {
                 return HttpNotFound();
             }
             return View(produtoViewModel);
         }
 
-        // POST: Produtos/Delete/5
-        [HttpPost, ActionName("Delete")]
+		[Route("editar-produto/{id:guid}")]
+		[HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
-            ProdutoViewModel produtoViewModel = await db.ProdutoViewModels.FindAsync(id);
-            db.ProdutoViewModels.Remove(produtoViewModel);
-            await db.SaveChangesAsync();
+			var produtoViewModel = await ObterProduto(id);
+
+			if (produtoViewModel == null)
+			{
+				return HttpNotFound();
+			}
+
+            _produtoService.Remover(id);
+
             return RedirectToAction("Index");
         }
 
@@ -138,7 +139,8 @@ namespace SupriMaster.AppMvc.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _produtoRepository.Dispose();
+                _produtoService.Dispose();
             }
             base.Dispose(disposing);
         }

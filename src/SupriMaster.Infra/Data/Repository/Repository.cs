@@ -16,9 +16,9 @@ namespace SupriMaster.Infra.Data.Repository
 		protected readonly SupriMasterDbContext Db;
 		protected readonly DbSet<TEntity> DbSet;
 
-		protected Repository()
+		protected Repository(SupriMasterDbContext db)
 		{
-			Db = new SupriMasterDbContext();
+			Db = db;
 			DbSet = Db.Set<TEntity>();
 		}
 		public virtual async Task<TEntity> ObterPorId(Guid id)
