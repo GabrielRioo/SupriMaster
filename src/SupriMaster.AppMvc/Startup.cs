@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using SupriMaster.AppMvc.App_Start;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -13,6 +14,7 @@ namespace SupriMaster.AppMvc
         {
             ConfigureAuth(app);
 
+            DependencyInjectionConfig.RegisterDIContainer();
 			AreaRegistration.RegisterAllAreas();
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
