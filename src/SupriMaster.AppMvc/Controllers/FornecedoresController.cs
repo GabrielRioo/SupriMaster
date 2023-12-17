@@ -32,6 +32,17 @@ namespace SupriMaster.AppMvc.Controllers
             return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos()));
         }
 
+		[Route("dados-do-fornecedor/{id:guid}")]
+		public async Task<ActionResult> Details(Guid id)
+		{
+			var fornecedorViewModel = await ObterFornecedorEndereco(id);
+
+			if (fornecedorViewModel == null)
+				return HttpNotFound();
+
+			return View(fornecedorViewModel);
+		}
+
 		[Route("novo-fornecedor")]
 		public ActionResult Create()
 		{
@@ -57,9 +68,7 @@ namespace SupriMaster.AppMvc.Controllers
 			var fornecedorViewModel = await ObterFornecedorProdutosEndereco(id);
 
 			if (fornecedorViewModel == null)
-			{
 				return HttpNotFound();
-			}
 
 			return View(fornecedorViewModel);
 		}

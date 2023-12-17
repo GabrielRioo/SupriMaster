@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using SupriMaster.AppMvc.Models;
 using SupriMaster.AppMvc.ViewModels;
 using SupriMaster.Business.Models.Produtos;
 using SupriMaster.Business.Models.Produtos.Services;
-using SupriMaster.Infra.Data.Repository;
-using SupriMaster.Business.Core.Notificacoes;
 using AutoMapper;
 
 namespace SupriMaster.AppMvc.Controllers
