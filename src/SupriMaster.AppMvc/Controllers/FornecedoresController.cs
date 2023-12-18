@@ -13,24 +13,24 @@ using System.Web.Mvc;
 
 namespace SupriMaster.AppMvc.Controllers
 {
-    public class FornecedoresController : BaseController
+	public class FornecedoresController : BaseController
 	{
-        private readonly IFornecedorRepository _fornecedorRepository;
-        private readonly IFornecedorService _fornecedorService;
-        private readonly IMapper _mapper;
+		private readonly IFornecedorRepository _fornecedorRepository;
+		private readonly IFornecedorService _fornecedorService;
+		private readonly IMapper _mapper;
 
-        public FornecedoresController(IFornecedorRepository fornecedorRepository, IFornecedorService fornecedorService, IMapper mapper)
-        {
-            _fornecedorRepository = fornecedorRepository;
-            _fornecedorService = fornecedorService;
-            _mapper = mapper;
-        }
+		public FornecedoresController(IFornecedorRepository fornecedorRepository, IFornecedorService fornecedorService, IMapper mapper)
+		{
+			_fornecedorRepository = fornecedorRepository;
+			_fornecedorService = fornecedorService;
+			_mapper = mapper;
+		}
 
-        [Route("lista-de-fornecedores")]
-        public async Task<ActionResult> Index()
-        {
-            return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos()));
-        }
+		[Route("lista-de-fornecedores")]
+		public async Task<ActionResult> Index()
+		{
+			return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos()));
+		}
 
 		[Route("dados-do-fornecedor/{id:guid}")]
 		public async Task<ActionResult> Details(Guid id)
@@ -53,7 +53,7 @@ namespace SupriMaster.AppMvc.Controllers
 		[HttpPost]
 		public async Task<ActionResult> Create(FornecedorViewModel fornecedorViewModel)
 		{
-			if(!ModelState.IsValid)
+			if (!ModelState.IsValid)
 				return View(fornecedorViewModel);
 
 			var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
@@ -77,10 +77,10 @@ namespace SupriMaster.AppMvc.Controllers
 		[HttpPost]
 		public async Task<ActionResult> Edit(Guid id, FornecedorViewModel fornecedorViewModel)
 		{
-			if (id != fornecedorViewModel.Id) 
+			if (id != fornecedorViewModel.Id)
 				return HttpNotFound();
 
-			if(!ModelState.IsValid)
+			if (!ModelState.IsValid)
 				return View(fornecedorViewModel);
 
 			var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
@@ -114,6 +114,47 @@ namespace SupriMaster.AppMvc.Controllers
 			await _fornecedorService.Remover(id);
 
 			return RedirectToAction("Index");
+		}
+
+		[Route("obter-endereco-fornecedor/{id:guid}")]
+		[HttpPost]
+		public async Task<ActionResult> ObterEndereco(Guid id)
+		{
+			var fornecedorViewModel = await ObterFornecedorEndereco(id);
+
+			if (fornecedorViewModel == null)
+				return HttpNotFound();
+
+			return PartialView("_DetalhesEndereco", fornecedorViewModel);
+		}
+
+		[Route("atualizar-endereco-fornecedor/{id:guid}")]
+		[HttpGet]
+		public async Task<ActionResult> AtualizarFornecedor(Guid id)
+		{
+			var fornecedorViewModel = await ObterFornecedorEndereco(id);
+
+			if (fornecedorViewModel == null)
+				return HttpNotFound();
+
+			return PartialView("_AtualizarEndereco", new FornecedorViewModel { Endereco = fornecedorViewModel.Endereco });
+		}
+
+		[Route("atualizar-endereco-fornecedor/{id:guid}")]
+		[HttpPost]
+		public async Task<ActionResult> AtualizarFornecedor(FornecedorViewModel fornecedorViewModel)
+		{
+			ModelState.Remove("Nome");
+			ModelState.Remove("Documento");
+
+			if (!ModelState.IsValid)
+				return PartialView("_AtualizarEndereco", fornecedorViewModel);
+
+			await _fornecedorService.AtualizarEndereco(_mapper.Map<Endereco>(fornecedorViewModel.Endereco));
+
+			var url = Url.Action("ObterEndereco", "Fornecedores", new { id = fornecedorViewModel.Endereco.Fornecedor });
+
+			return Json(new { success = true, url });
 		}
 
 		private async Task<FornecedorViewModel> ObterFornecedorEndereco(Guid id)
