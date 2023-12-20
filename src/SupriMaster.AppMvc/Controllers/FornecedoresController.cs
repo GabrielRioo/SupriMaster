@@ -19,11 +19,11 @@ namespace SupriMaster.AppMvc.Controllers
 		private readonly IFornecedorService _fornecedorService;
 		private readonly IMapper _mapper;
 
-		public FornecedoresController(IFornecedorRepository fornecedorRepository, IFornecedorService fornecedorService, IMapper mapper)
+		public FornecedoresController(IFornecedorRepository fornecedorRepository, IMapper mapper, IFornecedorService fornecedorService, INotificador notificador) : base(notificador)
 		{
 			_fornecedorRepository = fornecedorRepository;
-			_fornecedorService = fornecedorService;
 			_mapper = mapper;
+			_fornecedorService = fornecedorService;
 		}
 
 		[Route("lista-de-fornecedores")]

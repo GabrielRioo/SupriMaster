@@ -28,7 +28,7 @@ namespace SupriMaster.AppMvc.ViewModels
 		public string Documento { get; set; }
 
 		[DisplayName("Tipo")]
-		public ETipoFornecedor TipoFornecedor { get; set; }
+		public int TipoFornecedor { get; set; }
 
 		public EnderecoViewModel Endereco { get; set; }
 
