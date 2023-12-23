@@ -21,6 +21,9 @@ namespace SupriMaster.Business.Models.Fornecedores.Services
 		}
 		public async Task Adicionar(Fornecedor fornecedor)
 		{
+			fornecedor.Endereco.Id = fornecedor.Id;
+			fornecedor.Endereco.Fornecedor = fornecedor;
+
 			if(!ExecutarValidacao(new FornecedorValidation(), fornecedor) || !ExecutarValidacao(new EnderecoValidation(), fornecedor.Endereco)) 
 				return;
 
@@ -68,7 +71,7 @@ namespace SupriMaster.Business.Models.Fornecedores.Services
 		{
 			var fornecedorAtual = await _fornecedorRepository.Buscar(f => f.Documento == fornecedor.Documento && f.Id != fornecedor.Id);
 
-			if (fornecedorAtual.Any())
+			if (!fornecedorAtual.Any())
 				return false;
 
 			Notificar("Já existe um fornecedor com este documento informado");

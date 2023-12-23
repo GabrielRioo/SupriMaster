@@ -57,7 +57,7 @@ namespace SupriMaster.AppMvc.Controllers
 			return View(produtoViewModel);
 		}
 
-		[ClaimsAuthorize("Produto", "Adicionar")]
+		//[ClaimsAuthorize("Produto", "Adicionar")]
 		[Route("novo-produto")]
 		[HttpGet]
 		public async Task<ActionResult> Create()
@@ -67,7 +67,7 @@ namespace SupriMaster.AppMvc.Controllers
 			return View(produtoViewModel);
 		}
 
-		[ClaimsAuthorize("Produto", "Adicionar")]
+		//[ClaimsAuthorize("Produto", "Adicionar")]
 		[Route("novo-produto")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
@@ -90,7 +90,7 @@ namespace SupriMaster.AppMvc.Controllers
 			return RedirectToAction("Index");
 		}
 
-		[ClaimsAuthorize("Produto", "Editar")]
+		//[ClaimsAuthorize("Produto", "Editar")]
 		[Route("editar-produto/{id:guid}")]
 		[HttpGet]
 		public async Task<ActionResult> Edit(Guid id)
@@ -105,7 +105,7 @@ namespace SupriMaster.AppMvc.Controllers
 			return View(produtoViewModel);
 		}
 
-		[ClaimsAuthorize("Produto", "Editar")]
+		//[ClaimsAuthorize("Produto", "Editar")]
 		[Route("editar-produto/{id:guid}")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
@@ -141,7 +141,7 @@ namespace SupriMaster.AppMvc.Controllers
 			return RedirectToAction("Index");
 		}
 
-		[ClaimsAuthorize("Produto", "Excluir")]
+		//[ClaimsAuthorize("Produto", "Excluir")]
 		[Route("excluir-produto/{id:guid}")]
 		[HttpGet]
 		public async Task<ActionResult> Delete(Guid id)
@@ -156,7 +156,7 @@ namespace SupriMaster.AppMvc.Controllers
 			return View(produtoViewModel);
 		}
 
-		[ClaimsAuthorize("Produto", "Excluir")]
+		//[ClaimsAuthorize("Produto", "Excluir")]
 		[Route("excluir-produto/{id:guid}")]
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]

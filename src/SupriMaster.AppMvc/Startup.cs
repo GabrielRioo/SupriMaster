@@ -1,6 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
 using SupriMaster.AppMvc.App_Start;
+using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -19,6 +20,8 @@ namespace SupriMaster.AppMvc
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            CultureConfig.RegisterCulture();
 		}
     }
 }
