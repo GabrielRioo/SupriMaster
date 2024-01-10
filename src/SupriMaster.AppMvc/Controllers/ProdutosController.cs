@@ -197,7 +197,7 @@ namespace SupriMaster.AppMvc.Controllers
 				return false;
 			}
 
-			var path = Path.Combine(HttpContext.Server.MapPath("~/imagens"), imgPrefixo + img.FileName);
+			var path = Path.Combine(HttpContext.Server.MapPath("~/Imagens"), imgPrefixo + img.FileName);
 
 			if (System.IO.File.Exists(path))
 			{

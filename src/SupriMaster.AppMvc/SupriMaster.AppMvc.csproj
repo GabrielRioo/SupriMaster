@@ -210,7 +210,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\EnderecoViewModel.cs" />
-    <Compile Include="ViewModels\FornecedorViewModel.cs" />
+    <Compile Include="ViewModels\FornecedorViewModel .cs" />
+    <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\ProdutoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -284,9 +285,11 @@
     <Content Include="Views\Fornecedores\_DetalhesEndereco.cshtml" />
     <Content Include="Views\Fornecedores\_AtualizarEndereco.cshtml" />
     <Content Include="Views\Produtos\_ListaProdutos.cshtml" />
+    <Content Include="Views\Shared\_ErrorSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Imagens\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SupriMaster.AppMvc.Extensions;
 using SupriMaster.AppMvc.ViewModels;
 using SupriMaster.Business.Core.Notificacoes;
 using SupriMaster.Business.Models.Fornecedores;
@@ -13,6 +14,7 @@ using System.Web.Mvc;
 
 namespace SupriMaster.AppMvc.Controllers
 {
+	[Authorize]
 	public class FornecedoresController : BaseController
 	{
 		private readonly IFornecedorRepository _fornecedorRepository;
@@ -26,12 +28,14 @@ namespace SupriMaster.AppMvc.Controllers
 			_fornecedorService = fornecedorService;
 		}
 
+		[AllowAnonymous]
 		[Route("lista-de-fornecedores")]
 		public async Task<ActionResult> Index()
 		{
 			return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos()));
 		}
 
+		[AllowAnonymous]
 		[Route("dados-do-fornecedor/{id:guid}")]
 		public async Task<ActionResult> Details(Guid id)
 		{
@@ -43,12 +47,14 @@ namespace SupriMaster.AppMvc.Controllers
 			return View(fornecedorViewModel);
 		}
 
+		[ClaimsAuthorize("Fornecedor", "Adicionar")]
 		[Route("novo-fornecedor")]
 		public ActionResult Create()
 		{
 			return View();
 		}
-
+		
+		[ClaimsAuthorize("Fornecedor", "Adicionar")]
 		[Route("novo-fornecedor")]
 		[HttpPost]
 		public async Task<ActionResult> Create(FornecedorViewModel fornecedorViewModel)
@@ -59,9 +65,13 @@ namespace SupriMaster.AppMvc.Controllers
 			var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
 			await _fornecedorService.Adicionar(fornecedor);
 
+			if (!OperacaoValida())
+				return View(fornecedorViewModel);
+
 			return RedirectToAction("Index");
 		}
 
+		[ClaimsAuthorize("Fornecedor", "Editar")]
 		[Route("editar-fornecedor/{id:guid}")]
 		public async Task<ActionResult> Edit(Guid id)
 		{
@@ -73,6 +83,7 @@ namespace SupriMaster.AppMvc.Controllers
 			return View(fornecedorViewModel);
 		}
 
+		[ClaimsAuthorize("Fornecedor", "Editar")]
 		[Route("editar-fornecedor/{id:guid}")]
 		[HttpPost]
 		public async Task<ActionResult> Edit(Guid id, FornecedorViewModel fornecedorViewModel)
@@ -91,6 +102,8 @@ namespace SupriMaster.AppMvc.Controllers
 			return RedirectToAction("Index");
 		}
 
+		[ClaimsAuthorize("Fornecedor", "Excluir")]
+		[Authorize(Roles = "Admin")]
 		[Route("excluir-fornecedor/{id:guid}")]
 		public async Task<ActionResult> Delete(Guid id)
 		{
@@ -102,6 +115,7 @@ namespace SupriMaster.AppMvc.Controllers
 			return View(fornecedorViewModel);
 		}
 
+		[ClaimsAuthorize("Fornecedor", "Excluir")]
 		[Route("excluir-fornecedor/{id:guid}")]
 		[HttpPost, ActionName("Delete")]
 		public async Task<ActionResult> DeleteConfirmed(Guid id)
